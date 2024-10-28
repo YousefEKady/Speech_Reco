@@ -4,13 +4,14 @@ import getpass
 # Authentication function
 def user_auth(name, password):
     user_list = [
-        {"username": "Lara", "password": "123456"},
-        {"username": "Yousef", "password": "123456"}
+        {"username": "Lara", "password": "123456", "role": "admin"},
+        {"username": "Yousef", "password": "123456", "role": "user"}
     ]
     for user in user_list:
         if user["username"] == name and user["password"] == password:
-            return True
-    return False
+            print(f"You are granted access as a {user['role']}.")
+            return user["role"]
+    return None
 
 # Speech recognition function
 def voice_speech_reco():
@@ -25,7 +26,8 @@ def voice_speech_reco():
         password = getpass.getpass("What is your password? ")
 
         # Check if the user is authenticated
-        if user_auth(name, password):
+        role = user_auth(name, password)
+        if role:
             print(f"Hello {name}, my name is Lara and I am here to help you.")
             
             # Ask if Lara can help
